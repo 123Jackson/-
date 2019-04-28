@@ -10,6 +10,8 @@ function jiangshi(game, x) {
     this.steep = 1;
     // 倒地图的切换图的信号量
     this.b = 0;
+    // 僵尸的血量
+    this.a = 4;
 }
 jiangshi.prototype.update = function() {
     this.sum++;

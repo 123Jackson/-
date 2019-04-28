@@ -57,7 +57,7 @@ function game() {
     var zutu = Object.keys(this.R).length;
     // 计数器
     var self = this;
-    var sum = 0;
+    var count = 0;
     // 遍历数组的项 加载里边的图片
     for (k in this.R) {
         (function(k) {
@@ -67,8 +67,8 @@ function game() {
             img.src = 'imges1/' + self.R[k];
             img.onload = function() {
                 self.R[k] = img;
-                sum++;
-                if (sum == zutu) {
+                count++;
+                if (count == zutu) {
                     self.start();
                 }
             };
@@ -109,14 +109,20 @@ game.prototype.start = function() {
         // console.log(self.zidanarr);
         for (var i = 0; i < self.zidanarr.length; i++) {
             if (self.zidanarr[i].x == self.jiangshi.x) {
-                self.zidanarr[i].sum++;
-                console.log(self.zidanarr[i].sum);
-                if (self.zidanarr[i].sum == 0) {
-                    console.log(self.jiangshi);
-                    self.jiangshi.rander();
-                } else if (self.zidanarr[i].sum == 2) {
+                self.jiangshi.a--;
+                self.zidanarr[i].randers();
+                self.zidanarr[i].qusi();
+                console.log(self.jiangshi.a);
+                if ((self.jiangshi.a = 2)) {
                     self.jiangshi.rander1();
+                } else if (self.jiangshi.a == 0) {
+                    self.jiangshi.rander2();
+                    // } else if ((self.jiangshi.a = 4)) {
+                    //     self.jiangshi.rander();
                 }
+            } else {
+                self.jiangshi.rander();
+                self.zidanarr[i].rander();
             }
         }
     }, 600);

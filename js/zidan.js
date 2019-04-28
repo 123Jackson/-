@@ -6,8 +6,6 @@ function zidan(game) {
     game.zidanarr.push(this);
     // 子弹两种状态
     this.zhuangtai = 0;
-    // 子弹的数量
-    this.sum = 0;
 }
 zidan.prototype.update = function() {
     this.x += this.step;
