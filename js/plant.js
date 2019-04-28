@@ -1,6 +1,6 @@
 // 植物类
 function plant(game) {
-    this.x = 300;
+    this.x = 260;
     this.y = 260;
     // 图片的信号量
     this.game = game;

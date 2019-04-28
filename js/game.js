@@ -70,6 +70,7 @@ function game() {
                 count++;
                 if (count == zutu) {
                     self.start();
+                    self.event();
                 }
             };
         })(k);
@@ -81,7 +82,6 @@ game.prototype.start = function() {
     this.f = 0;
     this.plant = new plant(this);
     this.zidanarr = [];
-    new zidan(this);
     this.jiangshi = new jiangshi(this);
     var a = setInterval(() => {
         self.ctx.clearRect(0, 0, 1400, 600);
@@ -101,29 +101,64 @@ game.prototype.start = function() {
             self.zidanarr[i] && self.zidanarr[i].rander();
         }
         // console.log(self.jiangshi.x);
-        if (self.jiangshi.x == 80) {
-            // self.canvas.style.backgroundImage = url(./imges1/naozi.png);
-            // alert('僵尸吃掉了你的脑子');
-            clearInterval(a);
-        }
+        // if (self.jiangshi.x == 80) {
+        //     // self.canvas.style.backgroundImage = url(./imges1/naozi.png);
+        //     // alert('僵尸吃掉了你的脑子');
+        //     clearInterval(a);
+        // } else if (self.jiangshi.x =) {
+        //     // alert('恭喜，胜利');
+        // }
+
         // console.log(self.zidanarr);
         for (var i = 0; i < self.zidanarr.length; i++) {
             if (self.zidanarr[i].x == self.jiangshi.x) {
-                self.jiangshi.a--;
                 self.zidanarr[i].randers();
                 self.zidanarr[i].qusi();
-                console.log(self.jiangshi.a);
+                self.jiangshi.a--;
+                // console.log(self.jiangshi.a);
+                // console.log(self.zidanarr[i]);
                 if ((self.jiangshi.a = 2)) {
                     self.jiangshi.rander1();
                 } else if (self.jiangshi.a == 0) {
                     self.jiangshi.rander2();
-                    // } else if ((self.jiangshi.a = 4)) {
-                    //     self.jiangshi.rander();
+                } else if (self.jiangshi.a < 0) {
+                    // self.jiangshi = null;
                 }
             } else {
                 self.jiangshi.rander();
                 self.zidanarr[i].rander();
             }
         }
-    }, 600);
+    }, 200);
 };
+game.prototype.event = function(e) {
+    // 备份this；
+    var self = this;
+    // console.log(self.zidanarr);
+    document.onkeydown = function(e) {
+        for (var i = 0; i < self.zidanarr.length; i++) {
+            if (e.keyCode == 32) {
+                self.zidanarr[i].move = true;
+            }
+        }
+        // if (e.keyCode == 32) {
+        //     self.zidan.move = true;
+        // }
+    };
+    document.onkeyup = function(e) {
+        for (var i = 0; i < self.zidanarr.length; i++) {
+            console.log(self.zidanarr.length);
+            if (e.keyCode == 32) {
+                self.zidanarr[i].move = false;
+                self.zidan.step = 0;
+                if (self.zidanarr[i].x == self.jiangshi.x) {
+                    self.zidanarr[i].qusi();
+                }
+            }
+        }
+        // if (e.keyCode == 32) {
+        //     self.zidan.move = false;
+        // }
+    };
+};
+// console.log(this.event());

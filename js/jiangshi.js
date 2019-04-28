@@ -15,12 +15,18 @@ function jiangshi(game, x) {
 }
 jiangshi.prototype.update = function() {
     this.sum++;
+    this.steep++;
+    this.b++;
     this.x -= this.step;
     if (this.sum >= 11) {
         this.sum = 1;
     }
     if (this.steep >= 10) {
         this.steep = 1;
+        this.x -= this.step;
+    }
+    if (this.b > 7) {
+        this.b = 0;
         this.x -= this.step;
     }
 };

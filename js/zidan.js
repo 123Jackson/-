@@ -4,11 +4,12 @@ function zidan(game) {
     this.y = 260;
     this.step = 20;
     game.zidanarr.push(this);
-    // 子弹两种状态
-    this.zhuangtai = 0;
+    this.move = true;
 }
 zidan.prototype.update = function() {
-    this.x += this.step;
+    if (this.move) {
+        this.x += this.step;
+    }
 };
 zidan.prototype.rander = function() {
     this.game.ctx.drawImage(this.game.R.zidan, this.x, this.y);
