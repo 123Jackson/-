@@ -6,12 +6,14 @@ function plant(game) {
     this.game = game;
     this.sum = 1;
 }
+// 植物的更新方式
 plant.prototype.update = function() {
     this.sum++;
     if (this.sum >= 15) {
         this.sum = 1;
     }
 };
+// 植物的渲染方式
 plant.prototype.rander = function() {
     this.game.ctx.drawImage(this.game.R['plant' + this.sum], this.x, this.y);
 };

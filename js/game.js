@@ -1,10 +1,15 @@
-function game() {
+function Game() {
     this.canvas = document.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.audio = document.querySelector('audio');
-    // this.audio.load();
-    // this.audio.play();
-    // this.zhuangtai = flase;s
+    this.audio1 = document.getElementById('audio1');
+    this.audio2 = document.getElementById('audio2');
+    this.audio3 = document.getElementById('audio3');
+    this.audio4 = document.getElementById('audio4');
+    console.log(this.audio2);
+    // console.log(this.audio2);
+    this.audio1.load();
+    this.audio1.play();
+    // this.zhuangtai = flase;
     this.R = {
         plant1: '01.png',
         plant2: '02.png',
@@ -51,7 +56,17 @@ function game() {
         dao4: 'dao4.png',
         dao5: 'dao5.png',
         dao6: 'dao6.png',
-        dao7: 'dao7.png'
+        dao7: 'dao7.png',
+        chi1: 'chi1.png',
+        chi2: 'chi2.png',
+        chi3: 'chi3.png',
+        chi4: 'chi4.png',
+        chi5: 'chi5.png',
+        chi6: 'chi6.png',
+        chi7: 'chi7.png',
+        chi8: 'chi8.png',
+        chi9: 'chi9.png',
+        chi10: 'chi10.png'
     };
     // 统计里边所有的图片的数量
     var zutu = Object.keys(this.R).length;
@@ -76,89 +91,70 @@ function game() {
         })(k);
     }
 }
-game.prototype.start = function() {
+Game.prototype.start = function() {
     var self = this;
     // this.audio.play();
     this.f = 0;
     this.plant = new plant(this);
     this.zidanarr = [];
-    this.jiangshi = new jiangshi(this);
+    this.jsarr = [];
+
+    // new zidan(this, 320, 260);
     var a = setInterval(() => {
         self.ctx.clearRect(0, 0, 1400, 600);
         self.f++;
-        self.ctx.fillStyle = 'pink';
+        self.ctx.fillStyle = 'black';
         self.ctx.fillText(self.f, 20, 20);
         self.plant.update();
-        self.plant.rander();
-        self.jiangshi.update();
-        self.jiangshi.rander();
-        if (self.f % 5 == 0) {
-            new zidan(this, 320, 260);
+        // console.log('self' + self.f);
+        // 如果帧率<=60的时候 植物渲染，反之清除定时器 游戏结束
+        if (!(self.f >= 80)) {
+            self.plant.rander();
+        } else {
+            clearInterval(a);
+            $('div').slideDown();
+            // audio.pause();
+            self.audio2.load();
+            self.audio2.play();
+            self.audio1.pause();
+            // clearInterval(a);
         }
-        // 遍历子弹数组
+        // if (self.f % 5 == 0) {
+        //     new zidan(self, 320, 260);
+        // }
+        // 每十帧产生一个僵尸
+        if (self.f % 10 == 0) {
+            new jiangshi(self);
+        }
+        // 遍历子弹数组，子弹进行更新，渲染
         for (var i = 0; i < self.zidanarr.length; i++) {
             self.zidanarr[i].update();
             self.zidanarr[i] && self.zidanarr[i].rander();
         }
-        // console.log(self.jiangshi.x);
-        // if (self.jiangshi.x == 80) {
-        //     // self.canvas.style.backgroundImage = url(./imges1/naozi.png);
-        //     // alert('僵尸吃掉了你的脑子');
-        //     clearInterval(a);
-        // } else if (self.jiangshi.x =) {
-        //     // alert('恭喜，胜利');
-        // }
-
-        // console.log(self.zidanarr);
-        for (var i = 0; i < self.zidanarr.length; i++) {
-            if (self.zidanarr[i].x == self.jiangshi.x) {
-                self.zidanarr[i].randers();
-                self.zidanarr[i].qusi();
-                self.jiangshi.a--;
-                // console.log(self.jiangshi.a);
-                // console.log(self.zidanarr[i]);
-                if ((self.jiangshi.a = 2)) {
-                    self.jiangshi.rander1();
-                } else if (self.jiangshi.a == 0) {
-                    self.jiangshi.rander2();
-                } else if (self.jiangshi.a < 0) {
-                    // self.jiangshi = null;
-                }
-            } else {
-                self.jiangshi.rander();
-                self.zidanarr[i].rander();
-            }
+        // 遍历僵尸的数组 僵尸进行更细 渲染
+        for (var i = 0; i < self.jsarr.length; i++) {
+            self.jsarr[i].update();
+            self.jsarr[i] && self.jsarr[i].rander();
+            // if (!(self.jsarr[i].x - self.plant.x <= 1)) {
+            //     self.plant.rander();
+            // } else {
+            //     clearInterval(a);
+            //     alert('僵尸吃掉了你的脑子');
+            //     // clearInterval(a);
+            // }
         }
-    }, 200);
+    }, 300);
 };
-game.prototype.event = function(e) {
+// 鼠标按键事件 空格键发射子弹
+Game.prototype.event = function(e) {
     // 备份this；
     var self = this;
-    // console.log(self.zidanarr);
     document.onkeydown = function(e) {
-        for (var i = 0; i < self.zidanarr.length; i++) {
-            if (e.keyCode == 32) {
-                self.zidanarr[i].move = true;
-            }
+        if (e.keyCode == 32) {
+            new zidan(self, 320, 260);
+            self.audio4.load();
+            self.audio4.play();
         }
-        // if (e.keyCode == 32) {
-        //     self.zidan.move = true;
-        // }
-    };
-    document.onkeyup = function(e) {
-        for (var i = 0; i < self.zidanarr.length; i++) {
-            console.log(self.zidanarr.length);
-            if (e.keyCode == 32) {
-                self.zidanarr[i].move = false;
-                self.zidan.step = 0;
-                if (self.zidanarr[i].x == self.jiangshi.x) {
-                    self.zidanarr[i].qusi();
-                }
-            }
-        }
-        // if (e.keyCode == 32) {
-        //     self.zidan.move = false;
-        // }
     };
 };
 // console.log(this.event());

@@ -11,17 +11,35 @@
                 background-image: url(./imges1/beijing.jpg);
                 background-size: 1400px 600px;
             }
+            div {
+                width: 500px;
+                height: 500px;
+                margin: 20px auto;
+                position: absolute;
+                top: 80px;
+                left: 300px;
+                display: none;
+            }
+            img {
+                width: 500px;
+                height: 500px;
+            }
         </style>
     </head>
     <body>
-        <audio src="../yinxiao.mp3"></audio>
+        <script src="js/jQuery.min.js"></script>
+        <div><img src="./imges1/over.png" alt="" /></div>
+        <audio src="/fail.mp3" id="audio2"></audio>
+        <audio src="../yinxiao.mp3" id="audio1"></audio>
+        <audio src="chi.mp3" id="audio3"></audio>
+        <audio src="zidan.mp3" id="audio4"></audio>
         <canvas width="1400" height="600"></canvas>
         <script src="js/plant.js"></script>
         <script src="js/zidan.js"></script>
         <script src="js/game.js"></script>
         <script src="js/jiangshi.js"></script>
         <script>
-            new game();
+            var game = new Game();
         </script>
     </body>
 </html>
