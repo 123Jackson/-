@@ -5,7 +5,7 @@ function Game() {
     this.audio2 = document.getElementById('audio2');
     this.audio3 = document.getElementById('audio3');
     this.audio4 = document.getElementById('audio4');
-    console.log(this.audio2);
+    // console.log(this.audio2);
     // console.log(this.audio2);
     this.audio1.load();
     this.audio1.play();
@@ -107,18 +107,8 @@ Game.prototype.start = function() {
         self.ctx.fillText(self.f, 20, 20);
         self.plant.update();
         // console.log('self' + self.f);
-        // 如果帧率<=60的时候 植物渲染，反之清除定时器 游戏结束
-        if (!(self.f >= 80)) {
-            self.plant.rander();
-        } else {
-            clearInterval(a);
-            $('div').slideDown();
-            // audio.pause();
-            self.audio2.load();
-            self.audio2.play();
-            self.audio1.pause();
-            // clearInterval(a);
-        }
+        // 如果帧率<=80的时候 植物渲染，反之清除定时器 游戏结束
+
         // if (self.f % 5 == 0) {
         //     new zidan(self, 320, 260);
         // }
@@ -135,14 +125,37 @@ Game.prototype.start = function() {
         for (var i = 0; i < self.jsarr.length; i++) {
             self.jsarr[i].update();
             self.jsarr[i] && self.jsarr[i].rander();
-            // if (!(self.jsarr[i].x - self.plant.x <= 1)) {
-            //     self.plant.rander();
-            // } else {
-            //     clearInterval(a);
-            //     alert('僵尸吃掉了你的脑子');
-            //     // clearInterval(a);
-            // }
+            if (!(self.jsarr[i].x - self.plant.x <= 1)) {
+                if (self.plant.xie > 0) {
+                    self.plant.rander();
+                }
+                if (self.plant.killsum == 5) {
+                    clearInterval(a);
+                    $('.box').slideDown();
+                    // $('div:eq(1)').slideup();
+                }
+            } else {
+                if (self.plant.xie < 0) {
+                    clearInterval(a);
+                    $('.box1').slideDown();
+                }
+                // clearInterval(a);
+            }
         }
+        // if (!(self.plant.x == self.jiangshi.x)) {
+        //     self.plant.rander();
+        //     self.plant.xie -= 2;
+        // } else {
+        //     if (self.plant.xie == 0) {
+        //         clearInterval(a);
+        //         $('div').slideDown();
+        //     }
+        //     // audio.pause();
+        //     self.audio2.load();
+        //     self.audio2.play();
+        //     self.audio1.pause();
+        //     // clearInterval(a);
+        // }
     }, 300);
 };
 // 鼠标按键事件 空格键发射子弹

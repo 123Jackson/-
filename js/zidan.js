@@ -4,7 +4,6 @@ function zidan(game) {
     this.y = 260;
     this.step = 20;
     game.zidanarr.push(this);
-    // this.move = true;
     // 1表示正常子弹
     // 2表示碎裂的
     this.type = 1;
@@ -15,16 +14,12 @@ function zidan(game) {
 }
 // 子弹的更新方式
 zidan.prototype.update = function() {
-    // if (this.move) {
-    // if (this.game.f % this.cd == 0) {
-    //     new zidan(self, 320, 260);
-    // }
     this.x += this.step;
-    // }
-
     if (this.type == 2) {
-        console.log(this.game.f - this.startsui);
+        // console.log(this.game.f - this.startsui);
+        // 判断子弹状态保持多少帧
         if (this.game.f - this.startsui > 1) {
+            // 然后在消失
             this.qusi();
         }
     }
@@ -43,6 +38,7 @@ zidan.prototype.rander = function() {
 zidan.prototype.biansui = function() {
     if (this.zang != true) {
         this.type = 2;
+        // 它的变碎等于帧率
         this.startsui = this.game.f;
         // 变脏
         this.zang = true;

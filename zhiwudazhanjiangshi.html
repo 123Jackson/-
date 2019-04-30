@@ -11,7 +11,7 @@
                 background-image: url(./imges1/beijing.jpg);
                 background-size: 1400px 600px;
             }
-            div {
+            .box1 {
                 width: 500px;
                 height: 500px;
                 margin: 20px auto;
@@ -24,11 +24,23 @@
                 width: 500px;
                 height: 500px;
             }
+            .box {
+                width: 500px;
+                height: 500px;
+                margin: 20px auto;
+                position: absolute;
+                top: 80px;
+                left: 300px;
+                display: none;
+            }
         </style>
     </head>
     <body>
         <script src="js/jQuery.min.js"></script>
-        <div><img src="./imges1/over.png" alt="" /></div>
+        <div class="box1"><img src="./imges1/over.png" alt="" /></div>
+        <div class="box">
+            <img src="./imges1/jiangbei.png" alt="" />
+        </div>
         <audio src="/fail.mp3" id="audio2"></audio>
         <audio src="../yinxiao.mp3" id="audio1"></audio>
         <audio src="chi.mp3" id="audio3"></audio>

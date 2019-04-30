@@ -16,6 +16,7 @@ function jiangshi(game) {
     this.zhuangtai = 0;
     //图片切换信号量
     this.steep = 1;
+    // 僵尸的计数器
 
     // 僵尸的血量
     this.a = 4;
@@ -68,6 +69,8 @@ jiangshi.prototype.update = function() {
     }
     // 如果血量等于1的时候。清除僵尸
     if (this.a == 1) {
+        // 僵尸死的时候 信号量加加
+        this.game.plant.killsum++;
         this.qusi();
     }
     // 每个僵尸都要遍历子弹
@@ -95,6 +98,7 @@ jiangshi.prototype.rander = function() {
         // console.log(this.zhuangtai);
     } else if (this.zhuangtai == 3) {
         this.game.ctx.drawImage(this.game.R['chi' + this.str], this.x, this.y);
+        this.game.plant.xie -= 10;
     }
 };
 // 僵尸去死的方法
